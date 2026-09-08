@@ -6,7 +6,6 @@ import { Banner } from './components/Banner';
 import { Categories } from './components/Categories';
 import { HotPrices } from './components/HotPrices';
 import { NewModels } from './components/NewModels';
-import styles from './Home.module.scss';
 
 const slides = [
   { id: '1', image: phonesBannerImg },
@@ -16,11 +15,11 @@ const slides = [
 
 export const Home = () => {
   return (
-    <main className={styles.home}>
+    <>
       <Banner slides={slides} />
       <NewModels />
       <Categories />
       <HotPrices />
-    </main>
+    </>
   );
 };

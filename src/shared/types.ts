@@ -12,3 +12,11 @@ export type Product = {
   year: number;
   image: string;
 };
+
+export interface PaginatedResponse<T> {
+  items: T[];
+  total: number;
+  // page: number;
+  // size: number | 'all';
+  totalPages: number;
+}
