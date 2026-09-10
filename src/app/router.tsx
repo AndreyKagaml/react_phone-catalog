@@ -6,6 +6,7 @@ import { Home } from '@/modules/home';
 import { Accessories } from '@/modules/products/components/Catalog/Accessories';
 import { Phones } from '@/modules/products/components/Catalog/Phones';
 import { Tablets } from '@/modules/products/components/Catalog/Tablets';
+import { ProductDetails } from '@/modules/products/components/ProductDetails';
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,13 @@ export const router = createBrowserRouter([
             element: <Phones />,
             handle: {
               breadcrumb: 'Phones',
+            },
+          },
+          {
+            path: 'phones/:id',
+            element: <ProductDetails />,
+            handle: {
+              breadcrumb: ':id',
             },
           },
           {

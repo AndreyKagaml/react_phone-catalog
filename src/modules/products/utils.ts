@@ -1,9 +1,9 @@
-import { ProductParams, productsParamsSchema } from './schema';
+import { ProductListParams, productListParamsSchema } from './schema';
 
 export const parseProductCatalogParamsFromSearchParams = (
   searchParams: URLSearchParams,
-): ProductParams => {
-  const result = productsParamsSchema.safeParse({
+): ProductListParams => {
+  const result = productListParamsSchema.safeParse({
     ...Object.fromEntries(searchParams),
   });
 

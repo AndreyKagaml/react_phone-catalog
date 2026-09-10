@@ -1,0 +1,36 @@
+.backButton {
+  display: flex;
+  height: 16px;
+  gap: 4px;
+  width: fit-content;
+}
+
+.arrow {
+  width: 16px;
+  height: 16px;
+  transform: rotate(-90deg);
+}
+
+.backText{
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 100%;
+
+  padding-top: 3px;
+  color: var(--color-secondary);
+}
+
+.title{
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 140%;
+
+  width: 100%;
+  color: var(--color-primary);
+
+  grid-column: 1 / -1;
+
+  margin-top: 16px;
+
+  
+}

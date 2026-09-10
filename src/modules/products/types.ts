@@ -1,4 +1,4 @@
-import { ProductParams } from '@/modules/products/schema';
+import { ProductListParams } from '@/modules/products/schema';
 
 import { PRODUCT_CATEGORIES, PRODUCT_SORT_OPTIONS } from './constants';
 
@@ -14,6 +14,6 @@ export interface BreadcrumbsItem {
 export type ProductCategory =
   (typeof PRODUCT_CATEGORIES)[keyof typeof PRODUCT_CATEGORIES];
 
-export type ProductQueryParams = ProductParams & {
+export type ProductQueryParams = ProductListParams & {
   category: ProductCategory;
 };
