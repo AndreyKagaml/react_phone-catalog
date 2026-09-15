@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+
 import Heart from '@/assets/icons/heart.svg?react';
-import { Button, CircleButton } from '@/shared/components/ui';
+import { Property } from '@/shared/components';
+import { AccentButton, CircleButton, Line } from '@/shared/components/ui';
 import { Product } from '@/shared/types';
 import { cn } from '@/shared/utils';
 
-import { DescriptionItem } from './DescriptionItem';
 import styles from './ProductCard.module.scss';
 
 interface Props {
@@ -17,11 +20,22 @@ export const ProductCard = ({
   withDiscount = false,
   className = '',
 }: Props) => {
-  const { image, name, price, fullPrice, screen, capacity, ram } = product;
+  const { t } = useTranslation();
+  const {
+    image,
+    name,
+    price,
+    fullPrice,
+    screen,
+    capacity,
+    ram,
+    category,
+    itemId,
+  } = product;
 
   return (
-    <article className={cn(styles.card, className)}>
-      <img className={styles.card__img} src={image} alt="" />
+    <Link to={`/${category}/${itemId}`} className={cn(styles.card, className)}>
+      <img className={styles.card__img} src={`/${image}`} alt="" />
 
       <h3 className={styles.card__title}>{name}</h3>
       <div className={styles.card__price}>
@@ -34,21 +48,19 @@ export const ProductCard = ({
           </span>
         )}
       </div>
-      <div className={styles.card__line} />
+      <Line />
       <div className={styles.card__info}>
-        <DescriptionItem title={'Screen'} text={screen} />
-        <DescriptionItem title={'Capacity'} text={capacity} />
-        <DescriptionItem title={'RAM'} text={ram} />
+        <Property title={t('screen')} text={screen} />
+        <Property title={t('capacity')} text={capacity} />
+        <Property title={t('ram')} text={ram} />
       </div>
 
       <div className={styles.card__buttons}>
-        <Button className={styles.button__add}>
-          <span>Add to cart</span>
-        </Button>
+        <AccentButton title={t('addToCart')} />
         <CircleButton>
           <Heart />
         </CircleButton>
       </div>
-    </article>
+    </Link>
   );
 };

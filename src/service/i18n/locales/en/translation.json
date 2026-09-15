@@ -1,6 +1,30 @@
 {
+  "home": "Home",
+  "phones": "Phones",
+  "tablets": "Tablets",
+  "accessories": "Accessories",
   "mobilePhones": "Mobile Phones",
+  "shopByCategory": "Shop by category",
   "back": "Back",
   "avaliableColors": "Avaliable colors",
-  "selectCapacity": "Select capacity"
+  "selectCapacity": "Select capacity",
+  "models": "models",
+
+  "screen": "Screen",
+  "capacity": "Capacity",
+  "resolution": "Resolution",
+  "processor": "Processor",
+  "ram": "RAM",
+  "about": "About",
+  "techSpecs": "Tech specs",
+  "builtInMemory": "Built in memory",
+  "cell": "Cell",
+  "camera": "Camera",
+  "zoom": "Zoom",
+
+  "addToCart": "Add to cart",
+  "youMayAlsoLike": "You may also like",
+  "sortBy": "Sort by",
+  "itemsOnPage": "Items on page",
+  "backToTop": "Back to top"
 }

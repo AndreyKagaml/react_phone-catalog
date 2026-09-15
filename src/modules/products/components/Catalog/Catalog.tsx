@@ -1,3 +1,5 @@
+import { useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { PRODUCT_SORT_OPTIONS } from '@/modules/products/constants';
@@ -11,7 +13,9 @@ import {
   Loader,
   NotFoundLabel,
 } from '@/shared/components/ui';
-import { usePagination } from '@/shared/hooks/usePagination';
+import { ROUTES } from '@/shared/constants';
+import { BreadcrumbContext } from '@/shared/context/BreadcrumbContext';
+import { useBaseBreadcrumbs, usePagination } from '@/shared/hooks';
 
 import styles from './Catalog.module.scss';
 
@@ -21,6 +25,7 @@ interface Props {
 }
 
 export const Catalog = ({ categoryName, category }: Props) => {
+  const { t } = useTranslation();
   const {
     page,
     perPage,
@@ -33,6 +38,20 @@ export const Catalog = ({ categoryName, category }: Props) => {
   const { data, isLoading, isError, refetch } = useProductsQuery(category);
   const navigate = useNavigate();
 
+  const { setBreadcrumbs } = useContext(BreadcrumbContext);
+  const breadcrumbs = useBaseBreadcrumbs();
+
+  useEffect(() => {
+    setBreadcrumbs(breadcrumbs);
+  }, [breadcrumbs, setBreadcrumbs]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [page, perPage]);
+
   return (
     <>
       {isLoading && <Loader className={styles.loader} />}
@@ -42,7 +61,7 @@ export const Catalog = ({ categoryName, category }: Props) => {
       {data &&
         (data.total === 0 ? (
           <NotFoundLabel
-            handleClick={() => navigate('/')}
+            handleClick={() => navigate(ROUTES.HOME)}
             className={styles.notFoundLabel}
           />
         ) : (
@@ -50,13 +69,13 @@ export const Catalog = ({ categoryName, category }: Props) => {
             <div className={styles.category}>
               <h1 className={styles.category__title}>{categoryName}</h1>
               <p className={styles.category__description}>
-                {data.total} models
+                {`${data.total} ${t('models')}`}
               </p>
             </div>
             <div className={styles.parameters}>
               <Dropdown
                 className={styles.dropdown__sort}
-                description={'Sort by'}
+                description={t('sortBy')}
                 value={sort}
                 values={PRODUCT_SORT_OPTIONS}
                 onChange={handleSortChange}
@@ -65,7 +84,7 @@ export const Catalog = ({ categoryName, category }: Props) => {
               />
               <Dropdown
                 className={styles.dropdown__page}
-                description={'Items on page'}
+                description={t('itemsOnPage')}
                 value={perPage}
                 values={PAGE_SIZE_OPTIONS}
                 onChange={handleSizeChange}

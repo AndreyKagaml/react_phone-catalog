@@ -20,3 +20,8 @@ export interface PaginatedResponse<T> {
   // size: number | 'all';
   totalPages: number;
 }
+
+export interface Breadcrumb {
+  name: string;
+  to?: string;
+}

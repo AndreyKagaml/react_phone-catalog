@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
 import cart from '@/assets/icons/cart.svg';
 import heart from '@/assets/icons/heart.svg';
 import { Button } from '@/shared/components/ui';
+import { ROUTES } from '@/shared/constants';
 import { useBodyScrollLock } from '@/shared/hooks';
 import { cn } from '@/shared/utils';
 
@@ -13,6 +15,8 @@ type MenuProps = {
 };
 
 export const Menu = ({ isVisible }: MenuProps) => {
+  const { t } = useTranslation();
+
   useBodyScrollLock(Boolean(isVisible));
 
   return (
@@ -21,17 +25,17 @@ export const Menu = ({ isVisible }: MenuProps) => {
       className={cn(styles.menu, { [styles.open]: isVisible })}
     >
       <nav className={styles.nav}>
-        <NavLink className={styles.link} to="/">
-          Home
+        <NavLink className={styles.link} to={ROUTES.HOME}>
+          {t('home')}
         </NavLink>
-        <NavLink className={styles.link} to="/phones">
-          Phones
+        <NavLink className={styles.link} to={ROUTES.PHONES}>
+          {t('phones')}
         </NavLink>
-        <NavLink className={styles.link} to="/tablets">
-          Tablets
+        <NavLink className={styles.link} to={ROUTES.TABLETS}>
+          {t('tablets')}
         </NavLink>
-        <NavLink className={styles.link} to="/accessories">
-          Accessories
+        <NavLink className={styles.link} to={ROUTES.ACCESSORIES}>
+          {t('accessories')}
         </NavLink>
       </nav>
 

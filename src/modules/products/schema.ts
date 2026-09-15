@@ -47,6 +47,7 @@ export const deviceDescriptionSchema = z.object({
 export const deviceSchema = z.object({
   id: z.string(),
   namespaceId: z.string(),
+  category: z.enum(['phones', 'tablets', 'accessories']),
   name: z.string(),
   capacityAvailable: z.array(z.string()),
   capacity: z.string(),
@@ -61,25 +62,27 @@ export const deviceSchema = z.object({
   processor: z.string(),
   ram: z.string(),
   cell: z.array(z.string()),
+  camera: z.string().optional(),
+  zoom: z.string().optional(),
 });
 
-export const phoneSchema = deviceSchema.extend({
-  category: z.literal('phones'),
-  camera: z.string(),
-  zoom: z.string(),
-});
+// export const phoneSchema = deviceSchema.extend({
+//   category: z.literal('phones'),
+//   camera: z.string(),
+//   zoom: z.string(),
+// });
 
-export const tabletSchema = deviceSchema.extend({
-  category: z.literal('tablets'),
-  camera: z.string(),
-  zoom: z.string(),
-});
+// export const tabletSchema = deviceSchema.extend({
+//   category: z.literal('tablets'),
+//   camera: z.string(),
+//   zoom: z.string(),
+// });
 
-export const accessorySchema = deviceSchema.extend({
-  category: z.literal('accessories'),
-});
+// export const accessorySchema = deviceSchema.extend({
+//   category: z.literal('accessories'),
+// });
 
-export type Phone = z.infer<typeof phoneSchema>;
-export type Tablet = z.infer<typeof tabletSchema>;
-export type Accessory = z.infer<typeof accessorySchema>;
-export type Device = Phone | Tablet | Accessory;
+// export type Phone = z.infer<typeof phoneSchema>;
+// export type Tablet = z.infer<typeof tabletSchema>;
+// export type Accessory = z.infer<typeof accessorySchema>;
+export type Device = z.infer<typeof deviceSchema>; //Phone | Tablet | Accessory;

@@ -25,13 +25,14 @@
     display: block;
     width: 89px;
     height: 32px;
-    transition: transform ease-in-out 0.3s;
+    
+    @include hover-transition;
   }
 
   &__img:hover{
     transform: scale(1.1);
   }
-  
+
   flex: 1;
 }
 

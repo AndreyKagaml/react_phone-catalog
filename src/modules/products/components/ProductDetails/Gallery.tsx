@@ -7,9 +7,10 @@ import styles from './Gallery.module.scss';
 
 interface Props {
   images: string[];
+  className?: string;
 }
 
-export const Gallery = ({ images }: Props) => {
+export const Gallery = ({ images, className }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
@@ -39,7 +40,7 @@ export const Gallery = ({ images }: Props) => {
   };
 
   return (
-    <div className={styles.gallery}>
+    <div className={cn(styles.gallery, className)}>
       <div
         className={styles.mainImage}
         onTouchStart={handleTouchStart}

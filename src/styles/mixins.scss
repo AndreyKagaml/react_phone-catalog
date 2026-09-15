@@ -31,3 +31,13 @@
     --count-columns: 24;
   }
 }
+
+@mixin hover-transition($duration: 0.3s) {
+  transition:
+    color $duration ease,
+    background-color $duration ease,
+    border-color $duration ease,
+    opacity $duration ease,
+    transform $duration ease,
+    box-shadow $duration ease;
+}

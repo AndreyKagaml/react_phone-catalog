@@ -1,3 +1,7 @@
+import { colornames } from 'color-name-list';
+
+import { specialColors } from '@/modules/products/constants';
+
 import { ProductListParams, productListParamsSchema } from './schema';
 
 export const parseProductCatalogParamsFromSearchParams = (
@@ -19,4 +23,21 @@ export const parseProductCatalogParamsFromSearchParams = (
   }
 
   return result.data;
+};
+
+const normalizeColorName = (name: string) =>
+  name.toLowerCase().replace(/[\s-_]/g, '');
+
+export const getColorHex = (name: string): string => {
+  const normalizedName = normalizeColorName(name);
+
+  if (specialColors[normalizedName]) {
+    return specialColors[normalizedName];
+  }
+
+  const color = colornames.find(
+    item => normalizeColorName(item.name) === normalizedName,
+  );
+
+  return color?.hex ?? '#FFFFFF';
 };

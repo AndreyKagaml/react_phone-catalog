@@ -5,10 +5,8 @@ import {
   Device,
   ProductItem,
   ProductPage,
-  accessorySchema,
-  phoneSchema,
+  deviceSchema,
   productItemSchema,
-  tabletSchema,
 } from '@/modules/products/schema';
 import { ProductCategory, ProductQueryParams } from '@/modules/products/types';
 import { paginate } from '@/shared/utils';
@@ -19,14 +17,32 @@ import productsJson from '../../../public/api/products.json';
 import tabletsJson from '../../../public/api/tablets.json';
 
 export const products = z.array(productItemSchema).parse(productsJson);
-export const phones = z.array(phoneSchema).parse(phonesJson);
-export const tablets = z.array(tabletSchema).parse(tabletsJson);
-export const accessories = z.array(accessorySchema).parse(accessoriesJson);
+export const phones = z.array(deviceSchema).parse(phonesJson);
+export const tablets = z.array(deviceSchema).parse(tabletsJson);
+export const accessories = z.array(deviceSchema).parse(accessoriesJson);
 
 export const productsStore: Record<ProductCategory, Device[]> = {
   phones,
   tablets,
   accessories,
+};
+
+export const getCategoryCounts = async () => {
+  await new Promise(resolve => setTimeout(resolve, 0));
+
+  const count = products.reduce(
+    (prev, item) => ({
+      ...prev,
+      [item.category]: prev[item.category] + 1,
+    }),
+    {
+      phones: 0,
+      tablets: 0,
+      accessories: 0,
+    },
+  );
+
+  return count;
 };
 
 export const getProducts = async (
@@ -54,6 +70,33 @@ export const getProducts = async (
     perPage,
     totalPages,
   };
+};
+
+function shuffle<T>(array: T[]): T[] {
+  const result = [...array];
+
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+
+  return result;
+}
+
+export const getRandomProducts = async (params: {
+  count: number;
+  category?: ProductCategory;
+}) => {
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  const { category, count } = params;
+
+  const productsList = category
+    ? products.filter(product => product.category === category)
+    : [...products];
+
+  return shuffle(productsList).slice(0, count);
 };
 
 export const getProductById = async (id: string): Promise<Device> => {

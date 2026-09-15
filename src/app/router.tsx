@@ -7,10 +7,11 @@ import { Accessories } from '@/modules/products/components/Catalog/Accessories';
 import { Phones } from '@/modules/products/components/Catalog/Phones';
 import { Tablets } from '@/modules/products/components/Catalog/Tablets';
 import { ProductDetails } from '@/modules/products/components/ProductDetails';
+import { ROUTES } from '@/shared/constants';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: ROUTES.HOME,
     element: <MainLayout />,
     children: [
       {
@@ -21,32 +22,28 @@ export const router = createBrowserRouter([
         element: <ProductsLayout />,
         children: [
           {
-            path: 'phones',
+            path: ROUTES.PHONES,
             element: <Phones />,
-            handle: {
-              breadcrumb: 'Phones',
-            },
           },
           {
             path: 'phones/:id',
             element: <ProductDetails />,
-            handle: {
-              breadcrumb: ':id',
-            },
           },
           {
-            path: 'tablets',
+            path: ROUTES.TABLETS,
             element: <Tablets />,
-            handle: {
-              breadcrumb: 'Tablets',
-            },
           },
           {
-            path: 'accessories',
+            path: 'tablets/:id',
+            element: <ProductDetails />,
+          },
+          {
+            path: ROUTES.ACCESSORIES,
             element: <Accessories />,
-            handle: {
-              breadcrumb: 'Accessories',
-            },
+          },
+          {
+            path: 'accessories/:id',
+            element: <ProductDetails />,
           },
         ],
       },

@@ -1,39 +1,27 @@
-import { Link, UIMatch, useMatches } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import ArrowIcon from '@/assets/icons/arrow-up.svg?react';
 import HomeIcon from '@/assets/icons/home.svg?react';
+import { ROUTES } from '@/shared/constants';
+import { BreadcrumbContext } from '@/shared/context/BreadcrumbContext';
 import { cn } from '@/shared/utils';
 
 import styles from './Breadcrumbs.module.scss';
 
-interface BreadcrumbItem extends UIMatch {
-  handle: { breadcrumb: string | ((match: UIMatch) => string) };
-}
-
 export const Breadcrumbs = () => {
-  const matches = useMatches() as BreadcrumbItem[];
-
-  const items = matches
-    .filter(match => match.handle?.breadcrumb)
-    .map(match => ({
-      name:
-        typeof match.handle.breadcrumb === 'function'
-          ? match.handle.breadcrumb(match)
-          : match.handle.breadcrumb,
-
-      to: match.pathname,
-    }));
+  const { breadcrumbs } = useContext(BreadcrumbContext);
 
   return (
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
       <ol className={styles.list}>
         <li className={styles.item}>
-          <Link to={'/'} className={styles.home}>
+          <Link to={ROUTES.HOME} className={styles.home}>
             <HomeIcon className={styles.homeIcon} />
           </Link>
         </li>
-        {items.map((item, index) => {
-          const isLastElement = index === items.length - 1;
+        {breadcrumbs.map((item, index) => {
+          const isLastElement = index === breadcrumbs.length - 1;
 
           return (
             <li key={item.name} className={styles.item}>
