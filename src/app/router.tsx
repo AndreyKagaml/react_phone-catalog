@@ -7,46 +7,61 @@ import { Accessories } from '@/modules/products/components/Catalog/Accessories';
 import { Phones } from '@/modules/products/components/Catalog/Phones';
 import { Tablets } from '@/modules/products/components/Catalog/Tablets';
 import { ProductDetails } from '@/modules/products/components/ProductDetails';
+import { ErrorFallback } from '@/shared/components';
 import { ROUTES } from '@/shared/constants';
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
+    {
+      path: ROUTES.HOME,
+      element: <MainLayout />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          element: <ProductsLayout />,
+          children: [
+            {
+              path: ROUTES.PHONES,
+              element: <Phones />,
+            },
+            {
+              path: 'phones/:id',
+              element: <ProductDetails />,
+            },
+            {
+              path: ROUTES.TABLETS,
+              element: <Tablets />,
+            },
+            {
+              path: 'tablets/:id',
+              element: <ProductDetails />,
+            },
+            {
+              path: ROUTES.ACCESSORIES,
+              element: <Accessories />,
+            },
+            {
+              path: 'accessories/:id',
+              element: <ProductDetails />,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: '*',
+      element: (
+        <ErrorFallback
+          title="Сторінку не знайдено"
+          description="Перевірте адресу або поверніться на головну."
+        />
+      ),
+    },
+  ],
   {
-    path: ROUTES.HOME,
-    element: <MainLayout />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        element: <ProductsLayout />,
-        children: [
-          {
-            path: ROUTES.PHONES,
-            element: <Phones />,
-          },
-          {
-            path: 'phones/:id',
-            element: <ProductDetails />,
-          },
-          {
-            path: ROUTES.TABLETS,
-            element: <Tablets />,
-          },
-          {
-            path: 'tablets/:id',
-            element: <ProductDetails />,
-          },
-          {
-            path: ROUTES.ACCESSORIES,
-            element: <Accessories />,
-          },
-          {
-            path: 'accessories/:id',
-            element: <ProductDetails />,
-          },
-        ],
-      },
-    ],
+    basename: import.meta.env.PROD ? '/react_phone-catalog' : '/',
   },
-]);
+);

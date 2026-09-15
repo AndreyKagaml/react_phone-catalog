@@ -6,3 +6,4 @@ export * from './ScrollLineCards';
 export * from './Breadcrumbs';
 export * from './Pagination';
 export * from './Property';
+export * from './ErrorFallback';
