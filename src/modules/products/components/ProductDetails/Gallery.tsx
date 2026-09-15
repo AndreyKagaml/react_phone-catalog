@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
 import { Button } from '@/shared/components/ui';
-import { cn } from '@/shared/utils';
+import { cn, getImageUrl } from '@/shared/utils';
 
 import styles from './Gallery.module.scss';
 
@@ -47,7 +47,7 @@ export const Gallery = ({ images, className }: Props) => {
         onTouchEnd={handleTouchEnd}
       >
         <img
-          src={`/${images[currentIndex]}`}
+          src={getImageUrl(images[currentIndex])}
           alt={`Product ${currentIndex + 1}`}
           draggable={false}
         />
@@ -62,7 +62,10 @@ export const Gallery = ({ images, className }: Props) => {
             })}
             onClick={() => setCurrentIndex(index)}
           >
-            <img src={`/${image}`} alt={`Product preview ${index + 1}`} />
+            <img
+              src={getImageUrl(image)}
+              alt={`Product preview ${index + 1}`}
+            />
           </Button>
         ))}
       </div>

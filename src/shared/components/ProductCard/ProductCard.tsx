@@ -5,7 +5,7 @@ import Heart from '@/assets/icons/heart.svg?react';
 import { Property } from '@/shared/components';
 import { AccentButton, CircleButton, Line } from '@/shared/components/ui';
 import { Product } from '@/shared/types';
-import { cn } from '@/shared/utils';
+import { cn, getImageUrl } from '@/shared/utils';
 
 import styles from './ProductCard.module.scss';
 
@@ -35,7 +35,7 @@ export const ProductCard = ({
 
   return (
     <Link to={`/${category}/${itemId}`} className={cn(styles.card, className)}>
-      <img className={styles.card__img} src={`/${image}`} alt="" />
+      <img className={styles.card__img} src={getImageUrl(image)} alt="" />
 
       <h3 className={styles.card__title}>{name}</h3>
       <div className={styles.card__price}>
