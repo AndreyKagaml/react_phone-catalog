@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 
 import { MainLayout } from '@/layouts/MainLayout';
 import { ProductsLayout } from '@/layouts/ProductsLayout';
@@ -10,7 +10,7 @@ import { ProductDetails } from '@/modules/products/components/ProductDetails';
 import { ErrorFallback } from '@/shared/components';
 import { ROUTES } from '@/shared/constants';
 
-export const router = createBrowserRouter(
+export const router = createHashRouter(
   [
     {
       path: ROUTES.HOME,
