@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import clsx, { type ClassValue } from 'clsx';
 
 import { PaginatedResponse } from '@/shared/types';
@@ -27,5 +28,8 @@ export const paginate = <T>(
 };
 
 export const getImageUrl = (image: string) => {
+  console.log('BASE_URL:', import.meta.env.BASE_URL);
+  console.log('image:', image);
+
   return `${import.meta.env.BASE_URL}${image}`;
 };
