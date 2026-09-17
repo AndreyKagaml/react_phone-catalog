@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -11,7 +12,6 @@ import { Product } from '@/shared/types';
 import { cn, getImageUrl } from '@/shared/utils';
 
 import styles from './ProductCard.module.scss';
-
 interface Props {
   product: Product;
   withDiscount?: boolean;
@@ -48,9 +48,14 @@ export const ProductCard = ({
     }
   };
 
+  const imgUrl = getImageUrl(image);
+
+  console.log(`/${image}`);
+  console.log(imgUrl);
+
   return (
     <Link to={`/${category}/${itemId}`} className={cn(styles.card, className)}>
-      <img className={styles.card__img} src={getImageUrl(image)} alt="" />
+      <img className={styles.card__img} src={`/${image}`} alt="" />
 
       <h3 className={styles.card__title}>{name}</h3>
       <div className={styles.card__price}>
