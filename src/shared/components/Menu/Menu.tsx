@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import cart from '@/assets/icons/cart.svg';
 import heart from '@/assets/icons/heart.svg';
@@ -16,6 +16,7 @@ type MenuProps = {
 
 export const Menu = ({ isVisible }: MenuProps) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useBodyScrollLock(Boolean(isVisible));
 
@@ -40,7 +41,11 @@ export const Menu = ({ isVisible }: MenuProps) => {
       </nav>
 
       <div className={styles.nav__block}>
-        <Button className={styles.menu__button} aria-label="Wishlist">
+        <Button
+          className={styles.menu__button}
+          aria-label="Wishlist"
+          onClick={() => navigate(ROUTES.FAVORITES)}
+        >
           <img className={styles.menu__img} src={heart} alt="" />
         </Button>
         <Button className={styles.menu__button} aria-label="Cart">

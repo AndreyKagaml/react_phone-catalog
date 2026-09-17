@@ -6,6 +6,7 @@ import menu from '@/assets/icons/menu.svg';
 import Logo from '@/assets/images/logo.svg?react';
 import { Menu } from '@/shared/components';
 import { Button } from '@/shared/components/ui';
+import { ROUTES } from '@/shared/constants';
 import { cn } from '@/shared/utils';
 
 import styles from './Header.module.scss';
@@ -15,7 +16,11 @@ export const Header = () => {
 
   return (
     <header className={styles.header}>
-      <Link to="/" className={styles.logo} aria-label="Nice Gadgets — Home">
+      <Link
+        to={ROUTES.HOME}
+        className={styles.logo}
+        aria-label="Nice Gadgets — Home"
+      >
         <Logo className={styles.logo__img} />
       </Link>
       <Menu isVisible={isMenuOpen} />

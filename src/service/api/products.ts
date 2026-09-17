@@ -50,12 +50,25 @@ export const getProducts = async (
 ): Promise<ProductPage> => {
   await new Promise(resolve => setTimeout(resolve, 500));
 
-  const { page, perPage, sort, category } = params;
-  const sortBy = PRODUCT_SORT_OPTIONS.find(option => option.key === sort);
+  const { page, perPage, sort, category, ids } = params;
 
-  const productsList = products
-    .filter(product => product.category === category)
-    .sort(sortBy?.compare);
+  let productsList: ProductItem[] = [...products];
+
+  if (category) {
+    productsList = productsList.filter(
+      product => product.category === params.category,
+    );
+  }
+
+  if (ids) {
+    productsList = productsList.filter(product => ids.includes(product.itemId));
+  }
+
+  if (sort) {
+    const sortBy = PRODUCT_SORT_OPTIONS.find(option => option.key === sort);
+
+    productsList = productsList.toSorted(sortBy?.compare);
+  }
 
   const { items, total, totalPages } = paginate<ProductItem>(
     productsList,

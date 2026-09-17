@@ -1,11 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { PRODUCT_SORT_OPTIONS } from '@/modules/products/constants';
-import { useSortProducts } from '@/modules/products/hooks/useSortProducts';
 import { useProductsQuery } from '@/modules/products/queries';
-import { ProductCategory } from '@/modules/products/types';
 import { ProductCard, Pagination } from '@/shared/components';
 import {
   Dropdown,
@@ -17,15 +15,12 @@ import { ROUTES } from '@/shared/constants';
 import { BreadcrumbContext } from '@/shared/context/BreadcrumbContext';
 import { useBaseBreadcrumbs, usePagination } from '@/shared/hooks';
 
-import styles from './Catalog.module.scss';
+import styles from './Favorites.module.scss';
 
-interface Props {
-  categoryName: string;
-  category: ProductCategory;
-}
-
-export const Catalog = ({ categoryName, category }: Props) => {
+export const Favorites = () => {
   const { t } = useTranslation();
+  const favoriteIds = useSelector(state => state.favorites.favorite_ids);
+
   const {
     page,
     perPage,
@@ -34,8 +29,9 @@ export const Catalog = ({ categoryName, category }: Props) => {
     PAGE_SIZE_OPTIONS,
   } = usePagination();
 
-  const { sort, handleSortChange } = useSortProducts();
-  const { data, isLoading, isError, refetch } = useProductsQuery({ category });
+  const { data, isLoading, isError, refetch } = useProductsQuery({
+    ids: favoriteIds,
+  });
   const navigate = useNavigate();
 
   const { setBreadcrumbs } = useContext(BreadcrumbContext);
@@ -67,21 +63,12 @@ export const Catalog = ({ categoryName, category }: Props) => {
         ) : (
           <>
             <div className={styles.category}>
-              <h1 className={styles.category__title}>{categoryName}</h1>
+              <h1 className={styles.category__title}>{t('favorites')}</h1>
               <p className={styles.category__description}>
-                {`${data.total} ${t('models')}`}
+                {`${data.total} ${t('items')}`}
               </p>
             </div>
             <div className={styles.parameters}>
-              <Dropdown
-                className={styles.dropdown__sort}
-                description={t('sortBy')}
-                value={sort}
-                values={PRODUCT_SORT_OPTIONS}
-                onChange={handleSortChange}
-                getLabel={option => option.labelValue}
-                getKey={option => option.key}
-              />
               <Dropdown
                 className={styles.dropdown__page}
                 description={t('itemsOnPage')}

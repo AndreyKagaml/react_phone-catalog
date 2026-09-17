@@ -4,6 +4,7 @@
   "tablets": "Tablets",
   "accessories": "Accessories",
   "mobilePhones": "Mobile Phones",
+  "favorites": "Favorites",
   "shopByCategory": "Shop by category",
   "back": "Back",
   "avaliableColors": "Avaliable colors",
@@ -26,5 +27,6 @@
   "youMayAlsoLike": "You may also like",
   "sortBy": "Sort by",
   "itemsOnPage": "Items on page",
-  "backToTop": "Back to top"
+  "backToTop": "Back to top",
+  "items": "items"
 }

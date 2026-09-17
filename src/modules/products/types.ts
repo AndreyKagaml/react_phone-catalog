@@ -15,5 +15,6 @@ export type ProductCategory =
   (typeof PRODUCT_CATEGORIES)[keyof typeof PRODUCT_CATEGORIES];
 
 export type ProductQueryParams = ProductListParams & {
-  category: ProductCategory;
+  category?: ProductCategory;
+  ids?: string[];
 };

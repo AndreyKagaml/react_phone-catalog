@@ -1,7 +1,10 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 
-import { ProductListParams } from '@/modules/products/schema';
+import {
+  ProductListParams,
+  productListParamsSchema,
+} from '@/modules/products/schema';
 import { ProductCategory } from '@/modules/products/types';
 import {
   getProductById,
@@ -9,7 +12,7 @@ import {
   getRandomProducts,
 } from '@/service/api/products';
 
-import { parseProductCatalogParamsFromSearchParams } from './utils';
+import { parseParamsBySchemaFromSearchParams } from './utils';
 
 export const productKeys = {
   all: ['products'],
@@ -23,16 +26,25 @@ export const productKeys = {
   ],
 };
 
-export const useProductsQuery = (category: ProductCategory) => {
+export const useProductsQuery = (params: {
+  category?: ProductCategory;
+  ids?: string[];
+}) => {
   const [searchParams] = useSearchParams();
-  const params = {
-    ...parseProductCatalogParamsFromSearchParams(searchParams),
+  const { category, ids } = params;
+
+  const queryParams = {
+    ...parseParamsBySchemaFromSearchParams(
+      searchParams,
+      productListParamsSchema,
+    ),
     category,
+    ids,
   };
 
   return useQuery({
-    queryKey: productKeys.list(params),
-    queryFn: () => getProducts(params),
+    queryKey: productKeys.list(queryParams),
+    queryFn: () => getProducts(queryParams),
     placeholderData: keepPreviousData,
   });
 };

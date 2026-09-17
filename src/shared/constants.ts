@@ -17,10 +17,12 @@ export const ROUTES = {
   PHONES: '/phones',
   TABLETS: '/tablets',
   ACCESSORIES: '/accessories',
+  FAVORITES: '/favorites',
 } as const;
 
 export const baseBreadcrumbs: Breadcrumb[] = [
   { name: 'Phones', to: ROUTES.PHONES },
   { name: 'Tablets', to: ROUTES.TABLETS },
   { name: 'Accesories', to: ROUTES.ACCESSORIES },
+  { name: 'Favorites', to: ROUTES.FAVORITES },
 ];

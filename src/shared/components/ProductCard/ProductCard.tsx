@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import HeartActive from '@/assets/icons/heart-active.svg?react';
 import Heart from '@/assets/icons/heart.svg?react';
+import { removeFromFavorites, addToFavorites } from '@/redux/favoritesSlice';
 import { Property } from '@/shared/components';
 import { AccentButton, CircleButton, Line } from '@/shared/components/ui';
 import { Product } from '@/shared/types';
@@ -21,6 +24,10 @@ export const ProductCard = ({
   className = '',
 }: Props) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const favoriteIds = useSelector(state => state.favorites.favorite_ids);
+  const isFavorite = favoriteIds.includes(product.itemId);
+
   const {
     image,
     name,
@@ -32,6 +39,14 @@ export const ProductCard = ({
     category,
     itemId,
   } = product;
+
+  const handleFavoriteClick = () => {
+    if (isFavorite) {
+      dispatch(removeFromFavorites(product.itemId));
+    } else {
+      dispatch(addToFavorites(product.itemId));
+    }
+  };
 
   return (
     <Link to={`/${category}/${itemId}`} className={cn(styles.card, className)}>
@@ -57,8 +72,8 @@ export const ProductCard = ({
 
       <div className={styles.card__buttons}>
         <AccentButton title={t('addToCart')} />
-        <CircleButton>
-          <Heart />
+        <CircleButton onClick={handleFavoriteClick}>
+          {isFavorite ? <HeartActive /> : <Heart />}
         </CircleButton>
       </div>
     </Link>

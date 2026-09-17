@@ -26,11 +26,11 @@ export const productPageSchema = z.object({
 });
 
 export const productListParamsSchema = z.object({
-  sort: z.enum(PRODUCT_SORT_KEYS).default('age'),
   page: z.coerce.number().int().min(1).default(1),
   perPage: z
     .union([z.coerce.number().int().min(1).max(100), z.literal('all')])
     .default('all'),
+  sort: z.enum(PRODUCT_SORT_KEYS).optional(),
   //category: z.enum(['phones', 'tablets', 'accessories']),
   //search_str: z.string().optional(),
 });
@@ -66,23 +66,4 @@ export const deviceSchema = z.object({
   zoom: z.string().optional(),
 });
 
-// export const phoneSchema = deviceSchema.extend({
-//   category: z.literal('phones'),
-//   camera: z.string(),
-//   zoom: z.string(),
-// });
-
-// export const tabletSchema = deviceSchema.extend({
-//   category: z.literal('tablets'),
-//   camera: z.string(),
-//   zoom: z.string(),
-// });
-
-// export const accessorySchema = deviceSchema.extend({
-//   category: z.literal('accessories'),
-// });
-
-// export type Phone = z.infer<typeof phoneSchema>;
-// export type Tablet = z.infer<typeof tabletSchema>;
-// export type Accessory = z.infer<typeof accessorySchema>;
-export type Device = z.infer<typeof deviceSchema>; //Phone | Tablet | Accessory;
+export type Device = z.infer<typeof deviceSchema>;
