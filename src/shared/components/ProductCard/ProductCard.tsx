@@ -9,7 +9,7 @@ import { removeFromFavorites, addToFavorites } from '@/redux/favoritesSlice';
 import { Property } from '@/shared/components';
 import { AccentButton, CircleButton, Line } from '@/shared/components/ui';
 import { Product } from '@/shared/types';
-import { cn } from '@/shared/utils';
+import { cn, getImageUrl } from '@/shared/utils';
 
 import styles from './ProductCard.module.scss';
 interface Props {
@@ -50,11 +50,7 @@ export const ProductCard = ({
 
   return (
     <Link to={`/${category}/${itemId}`} className={cn(styles.card, className)}>
-      <img
-        className={styles.card__img}
-        src={`${import.meta.env.BASE_URL}${image}`}
-        alt={name}
-      />
+      <img className={styles.card__img} src={getImageUrl(image)} alt={name} />
 
       <h3 className={styles.card__title}>{name}</h3>
       <div className={styles.card__price}>
