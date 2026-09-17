@@ -28,8 +28,8 @@ export const paginate = <T>(
 };
 
 export const getImageUrl = (image: string) => {
-  console.log('BASE_URL:', import.meta.env.BASE_URL);
-  console.log('image:', image);
+  const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
+  const path = image.replace(/^\/+/, '');
 
-  return `${import.meta.env.BASE_URL}${image}`;
+  return `${base}/${path}`;
 };
