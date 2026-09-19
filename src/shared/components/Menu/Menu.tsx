@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
-import cart from '@/assets/icons/cart.svg';
-import heart from '@/assets/icons/heart.svg';
-import { Button } from '@/shared/components/ui';
+import Cart from '@/assets/icons/cart.svg?react';
+import Heart from '@/assets/icons/heart.svg?react';
 import { ROUTES } from '@/shared/constants';
 import { useBodyScrollLock } from '@/shared/hooks';
 import { cn } from '@/shared/utils';
@@ -16,7 +16,9 @@ type MenuProps = {
 
 export const Menu = ({ isVisible }: MenuProps) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const countFavorites = useSelector(
+    state => state.favorites.favorite_ids.length,
+  );
 
   useBodyScrollLock(Boolean(isVisible));
 
@@ -41,16 +43,26 @@ export const Menu = ({ isVisible }: MenuProps) => {
       </nav>
 
       <div className={styles.nav__block}>
-        <Button
+        {/* <Button
           className={styles.menu__button}
           aria-label="Wishlist"
-          onClick={() => navigate(ROUTES.FAVORITES)}
-        >
-          <img className={styles.menu__img} src={heart} alt="" />
-        </Button>
-        <Button className={styles.menu__button} aria-label="Cart">
-          <img className={styles.menu__img} src={cart} alt="" />
-        </Button>
+          //onClick={() => navigate(ROUTES.FAVORITES)}
+        > */}
+        <NavLink to={ROUTES.FAVORITES} className={styles.button__link}>
+          <div className={styles.icon}>
+            <Heart className={styles.menu__img} />
+            {countFavorites > 0 && (
+              <div className={styles.badge}>{countFavorites}</div>
+            )}
+          </div>
+        </NavLink>
+        {/* </Button> */}
+
+        {/* <Button className={styles.menu__button} aria-label="Cart"> */}
+        <NavLink to={ROUTES.CART} className={styles.button__link}>
+          <Cart />
+        </NavLink>
+        {/* </Button> */}
       </div>
     </aside>
   );

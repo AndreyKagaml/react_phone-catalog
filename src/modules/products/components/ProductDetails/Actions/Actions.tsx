@@ -2,11 +2,13 @@ import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import HeartActive from '@/assets/icons/heart-active.svg?react';
 import Heart from '@/assets/icons/heart.svg?react';
 import { Device } from '@/modules/products/schema';
 import { getColorHex } from '@/modules/products/utils';
 import { Property } from '@/shared/components';
 import { AccentButton, Button, CircleButton } from '@/shared/components/ui';
+import { useFavoriteButton } from '@/shared/hooks';
 import { cn } from '@/shared/utils';
 
 import styles from './Actions.module.scss';
@@ -21,6 +23,7 @@ interface Props {
 export const Actions = ({ device, discount = true, className }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { isFavorite, onFavoriteClick } = useFavoriteButton(device.id);
 
   const {
     namespaceId,
@@ -103,8 +106,8 @@ export const Actions = ({ device, discount = true, className }: Props) => {
 
       <div className={styles.buttons}>
         <AccentButton title={t('addToCart')} />
-        <CircleButton>
-          <Heart />
+        <CircleButton onClick={onFavoriteClick}>
+          {isFavorite ? <HeartActive /> : <Heart />}
         </CircleButton>
       </div>
 

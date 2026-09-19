@@ -17,7 +17,10 @@ const favoritesSlice = createSlice({
     },
 
     removeFromFavorites: (state, action: PayloadAction<string>) => {
-      state.favorite_ids.filter(id => id !== action.payload);
+      // eslint-disable-next-line no-param-reassign
+      state.favorite_ids = state.favorite_ids.filter(
+        id => id !== action.payload,
+      );
     },
   },
 });

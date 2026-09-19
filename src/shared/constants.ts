@@ -18,6 +18,7 @@ export const ROUTES = {
   TABLETS: '/tablets',
   ACCESSORIES: '/accessories',
   FAVORITES: '/favorites',
+  CART: '/cart',
 } as const;
 
 export const baseBreadcrumbs: Breadcrumb[] = [
@@ -25,4 +26,5 @@ export const baseBreadcrumbs: Breadcrumb[] = [
   { name: 'Tablets', to: ROUTES.TABLETS },
   { name: 'Accesories', to: ROUTES.ACCESSORIES },
   { name: 'Favorites', to: ROUTES.FAVORITES },
+  { name: 'Cart', to: ROUTES.CART },
 ];

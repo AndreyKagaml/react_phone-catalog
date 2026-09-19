@@ -1,13 +1,11 @@
-/* eslint-disable no-console */
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import HeartActive from '@/assets/icons/heart-active.svg?react';
 import Heart from '@/assets/icons/heart.svg?react';
-import { removeFromFavorites, addToFavorites } from '@/redux/favoritesSlice';
 import { Property } from '@/shared/components';
 import { AccentButton, CircleButton, Line } from '@/shared/components/ui';
+import { useFavoriteButton } from '@/shared/hooks';
 import { Product } from '@/shared/types';
 import { cn, getImageUrl } from '@/shared/utils';
 
@@ -24,9 +22,7 @@ export const ProductCard = ({
   className = '',
 }: Props) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const favoriteIds = useSelector(state => state.favorites.favorite_ids);
-  const isFavorite = favoriteIds.includes(product.itemId);
+  const { isFavorite, onFavoriteClick } = useFavoriteButton(product.itemId);
 
   const {
     image,
@@ -39,14 +35,6 @@ export const ProductCard = ({
     category,
     itemId,
   } = product;
-
-  const handleFavoriteClick = () => {
-    if (isFavorite) {
-      dispatch(removeFromFavorites(product.itemId));
-    } else {
-      dispatch(addToFavorites(product.itemId));
-    }
-  };
 
   return (
     <Link to={`/${category}/${itemId}`} className={cn(styles.card, className)}>
@@ -72,7 +60,7 @@ export const ProductCard = ({
 
       <div className={styles.card__buttons}>
         <AccentButton title={t('addToCart')} />
-        <CircleButton onClick={handleFavoriteClick}>
+        <CircleButton onClick={onFavoriteClick}>
           {isFavorite ? <HeartActive /> : <Heart />}
         </CircleButton>
       </div>
